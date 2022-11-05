@@ -22,6 +22,12 @@ let divideButton = document.querySelector("#div")
 
 let equalButton = document.querySelector("#equ");
 
+let backButton = document.querySelector("#back-btn");
+
+let decimalButton = document.querySelector("#decimal-btn");
+
+let powerButton = document.querySelector("#power");
+
 //displays
 let displayMain = document.querySelector(".screen");
 
@@ -49,6 +55,7 @@ function opBtnClick(item){
 }
 
 //iterate over each item in the .num-btn class and add an addEventlistener + event, then push to array
+
 numberButtons.forEach(numBtnClick);
 
 console.log(numberButtons);
@@ -57,8 +64,9 @@ function numBtnClick (item){
     item.addEventListener("click", function(){
         numAr.push(item.id);
         displayTwo.innerText = numAr.join("");
-    }
-    )};
+        }
+    )
+};
 
 
 //changing operator button class so that the background is highlighted showing the user what operator is active, it will first clear all other operator classes of "active" so only one will be active at a time.
@@ -70,7 +78,7 @@ addButton.classList.remove("active");
 subtractButton.classList.remove("active");
 multiButton.classList.remove("active");
 divideButton.classList.remove("active");
-equalButton.classList.remove("active");
+powerButton.classList.remove("active");
 }
 
 //will add active class to "active" button (one that has its operator in opStr) so that the background change and the user know which operator will be used when equal is clicked
@@ -97,7 +105,7 @@ opButtons.forEach(function (item){ item.addEventListener("click",function(){
         displayAns.innerText = ansString;
         numAr = [];
         displayTwo.innerText = "";
-        } 
+        }
     })
 });
 
@@ -137,6 +145,14 @@ equalButton.addEventListener("click", function (){
         opStr = "";
         remClass ()
     }
+    else if (numAr.length != 0 && ansAr.length != 0 && opStr == "power"){
+        let newAns = operator("^", Number(displayAns.innerText), Number(displayTwo.innerText));
+        displayAns.innerText = newAns;
+        numAr = [];
+        displayTwo.innerText = "";
+        opStr = "";
+        remClass ()
+    }
 })
 
 
@@ -159,12 +175,23 @@ opStr = "";
 numAr = [];
 displayTwo.innerText = "";
 
-addButton.classList.remove("active");
-subtractButton.classList.remove("active");
-multiButton.classList.remove("active");
-divideButton.classList.remove("active");
+remClass () 
 };
 
+// back space button (only for bottom display window)
+
+backButton.addEventListener("click", function () {
+    numAr.pop();
+    displayTwo.innerText = numAr.join("");
+
+})
+
+//decimal button
+
+decimalButton.addEventListener("click", function () {
+    numAr.push(".");
+    displayTwo.innerText = numAr.join("");
+})
 
 // operators
 const add = function(a, b) {
@@ -188,6 +215,12 @@ const divide = function(a, b){
     return ans;
 };
 
+const power = function(a, b){
+    let ans = (a ** b)
+    return ans;
+}
+
+//operator function, used for when you click equal button
 function operator (op, num1, num2){
     if (op == "+"){
         return add(num1, num2);
@@ -199,18 +232,10 @@ function operator (op, num1, num2){
         return multiply(num1, num2);
     }
     else if (op == "/"){
-        return divide(num1, num2)
+        return divide(num1, num2);
+    }
+    else if (op == "^"){
+        return power(num1, num2);
     }
 }
 
-
-/*
-console.log(operator("+", 1, 2));
-console.log("answer: 3");
-console.log(operator("*", 5, 5));
-console.log("answer: 25");
-console.log(operator("-", 10, 5));
-console.log("answer: 5");
-console.log(operator("/", 15, 5));
-console.log("answer: 3");
-*/
