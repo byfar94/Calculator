@@ -1,0 +1,49 @@
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-calc{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 5px black solid;
+    height: 30rem;
+}
+
+.screen{
+    border: 1px black solid;
+    flex: 1;
+    width:20rem;
+    margin-bottom: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.screen div{
+    flex:1 0 auto;
+    width: inherit;
+    color: black;
+}
+
+.button-container{
+    border: 1px black solid;
+    display: grid;
+    grid-template-columns: repeat(4, 5rem);
+    flex: 2;
+    gap: 0.25rem;
+    margin: 0.25rem;
+}
+
+.button-container div{
+    border: 1px black solid;
+    text-align: center;
+}
+
+.active{
+    background-color: green;
+}
