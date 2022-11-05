@@ -22,16 +22,17 @@ main{
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
+    overflow-x: hidden;
 }
 
 .screen div{
     flex:1 0 auto;
     width: inherit;
     color: black;
+    overflow-x: inherit;
 }
 
 .button-container{
-    border: 1px black solid;
     display: grid;
     grid-template-columns: repeat(4, 5rem);
     flex: 2;

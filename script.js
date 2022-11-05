@@ -49,16 +49,12 @@ function opBtnClick(item){
        else {
         return
        }
-
-       console.log(opStr);
     })
 }
 
 //iterate over each item in the .num-btn class and add an addEventlistener + event, then push to array
 
 numberButtons.forEach(numBtnClick);
-
-console.log(numberButtons);
 
 function numBtnClick (item){
     item.addEventListener("click", function(){
@@ -156,14 +152,6 @@ equalButton.addEventListener("click", function (){
 })
 
 
-//testing Arrays/ strings
-console.log(`numAr: ${numAr}`)
-console.log(numAr);
-console.log(`ansAr: ${ansAr}`)
-console.log(ansAr)
-
-
-
 //clear button/ function
 clrButton.addEventListener("click", clear)
 
@@ -189,8 +177,12 @@ backButton.addEventListener("click", function () {
 //decimal button
 
 decimalButton.addEventListener("click", function () {
-    numAr.push(".");
+  if (!numAr.includes(".")) { numAr.push(".");
     displayTwo.innerText = numAr.join("");
+    } 
+    else {
+        return;
+    } 
 })
 
 // operators
