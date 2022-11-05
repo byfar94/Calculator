@@ -1,4 +1,4 @@
-//arrays / strings
+//arrays & strings
 let ansAr = [];
 
 let opStr = "";
@@ -37,7 +37,7 @@ opButtons.forEach(opBtnClick);
 
 function opBtnClick(item){
     item.addEventListener("click", function(){
-       if ((ansAr.length > 0 && numAr.length == 0) || (ansAr.length == 0 && numAr != 0)) {
+       if ((ansAr.length > 0 && numAr.length == 0) || (ansAr.length == 0 && numAr != 0) || (ansAr.length > 0 && numAr.length > 0)) {
         opStr = item.id;
        }
        else {
@@ -63,20 +63,26 @@ function numBtnClick (item){
 
 //changing operator button class so that the background is highlighted showing the user what operator is active, it will first clear all other operator classes of "active" so only one will be active at a time.
 
-// this feature will only work if the item.id == opStr this is to improve the UI. For stance if you click "20", then "+", then "10" then "-" the calculator will add 20 and 10 giving you 30, however because of the above opButtons() function the opStr will not = sub. This mean if you were to press 5 and "=" nothing would happen because there is not operator to tell the operator function what to do (e.g. add, subtract, multiply, etc..). This background color change feature will alert the user to what operator, if any, is currently selected. 
+
+//will remove class list from op buttons
+function remClass () {
+addButton.classList.remove("active");
+subtractButton.classList.remove("active");
+multiButton.classList.remove("active");
+divideButton.classList.remove("active");
+equalButton.classList.remove("active");
+}
+
+//will add active class to "active" button (one that has its operator in opStr) so that the background change and the user know which operator will be used when equal is clicked
 
 opButtons.forEach(function (item){ item.addEventListener("click", function () {
     
-addButton.classList.remove("active")
-subtractButton.classList.remove("active")
-multiButton.classList.remove("active")
-divideButton.classList.remove("active")
-equalButton.classList.remove("active")
+remClass()
 
  if (item.id == opStr){
-item.classList.add("active") 
- } else {return 
-}
+    item.classList.add("active") 
+    } else {return 
+    }
 })
 });
 
@@ -92,26 +98,46 @@ opButtons.forEach(function (item){ item.addEventListener("click",function(){
         numAr = [];
         displayTwo.innerText = "";
         } 
-    else if (numAr.length != 0 && ansAr.length != 0 && opStr == "add"){
+    })
+});
+
+
+//equal buttons functions -------->
+
+equalButton.addEventListener("click", function (){
+    if (numAr.length != 0 && ansAr.length != 0 && opStr == "add"){
         let newAns = operator("+", Number(displayAns.innerText), Number(displayTwo.innerText));
         displayAns.innerText = newAns;
         numAr = [];
         displayTwo.innerText = "";
+        opStr = "";
+        remClass ()
     }
     else if (numAr.length != 0 && ansAr.length != 0 && opStr == "sub"){
         let newAns = operator("-", Number(displayAns.innerText), Number(displayTwo.innerText));
         displayAns.innerText = newAns;
         numAr = [];
         displayTwo.innerText = "";
+        opStr = "";
+        remClass ()
     }
-console.log(`displayAns: ${typeof(displayAns.innerText)}`)
-console.log(`displayTwo: ${typeof(displayTwo.innerText)}`)
-console.log(operator("+", Number(displayAns.innerText), Number(displayTwo.innerText)))
-    })
-});
-
-
-//equal buttons functions -------->
+    else if (numAr.length != 0 && ansAr.length != 0 && opStr == "multi"){
+        let newAns = operator("*", Number(displayAns.innerText), Number(displayTwo.innerText));
+        displayAns.innerText = newAns;
+        numAr = [];
+        displayTwo.innerText = "";
+        opStr = "";
+        remClass ()
+    }
+    else if (numAr.length != 0 && ansAr.length != 0 && opStr == "div"){
+        let newAns = operator("/", Number(displayAns.innerText), Number(displayTwo.innerText));
+        displayAns.innerText = newAns;
+        numAr = [];
+        displayTwo.innerText = "";
+        opStr = "";
+        remClass ()
+    }
+})
 
 
 //testing Arrays/ strings
